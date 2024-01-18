@@ -8,5 +8,4 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='cart'),
     path('product/<int:id>', ProductSingleView.as_view(), name='product'),
 
-
 ]

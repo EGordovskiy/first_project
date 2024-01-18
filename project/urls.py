@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('grappelli/', include('grappelli.urls')),
+    path('admin/', admin.site.urls),
     path('other/', include('other.urls')),
     path('shop/', include('store.urls')),
+    path('login/', include('login.urls')),
 ]
 
 # www.mysite.ru/other/datetime/
