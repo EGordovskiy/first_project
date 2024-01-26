@@ -9,15 +9,18 @@ from .views import CartViewSet
 
 
 class CartViewSetTestCase(TestCase):
+    fixtures = ['testdata.json']
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        category = Category.objects.create(name='Vegetables')
-        self.product = Product.objects.create(name='Test Product',
-                                              description='Test description',
-                                              price=10.0,
-                                              category=category
-                                              )
+        self.user = User.objects.first()
+        self.product = Product.objects.first()
+        # self.user = User.objects.create_user(username='testuser', password='testpassword')
+        # category = Category.objects.create(name='Vegetables')
+        # self.product = Product.objects.create(name='Test Product',
+        #                                       description='Test description',
+        #                                       price=10.0,
+        #                                       category=category
+        #                                       )
 
     def test_create_cart_item(self):
         request = self.factory.post('/carts/', {'product': self.product.id})
@@ -52,16 +55,20 @@ class CartViewSetTestCase(TestCase):
 
 
 class CartSerializerTestCase(TestCase):
+    fixtures = ['testdata.json']
     def setUp(self):
-        self.factory = APIRequestFactory()
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        category = Category.objects.create(name='Vegetables')
-        self.product = Product.objects.create(name='Test Product',
-                                              description='Test description',
-                                              price=10.0,
-                                              category=category
-                                              )
+        self.user = User.objects.first()
+        self.product = Product.objects.first()
         self.cart_item = Cart.objects.create(user=self.user, product=self.product)
+        # self.factory = APIRequestFactory()
+        # self.user = User.objects.create_user(username='testuser', password='testpassword')
+        # category = Category.objects.create(name='Vegetables')
+        # self.product = Product.objects.create(name='Test Product',
+        #                                       description='Test description',
+        #                                       price=10.0,
+        #                                       category=category
+        #                                       )
+        # self.cart_item = Cart.objects.create(user=self.user, product=self.product)
 
     def test_cart_serializer(self):
         serializer = CartSerializer(instance=self.cart_item)
